@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org">
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.min.css" media="screen,projection" />
+<style>
+form input[type=submit] {
+	color: white;
+}
+</style>
+<meta charset="UTF-8">
+<title>Details User</title>
+</head>
+<body>
+	<h2>About user</h2>
+	<br>
+	
+	<h5>Details</h5>
+	
+<a class="btn waves-effect waves-light" href="/register-person">Register Person</a>
+
+	<div th:each="p : ${personObj}">
+		<div class="row">
+		<p>ID: <span th:text="${p.id}"></span></p>
+		<p>Name: <span th:text="${p.name}"></span></p>
+		<p>LastName: <span th:text="${p.lastName}"></span></p>
+		<p>Age: <span th:text="${p.age}"></span></p>
+		
+		
+		</div>
+	</div>
+	
+	<h5>Contacts</h5>
+	
+	<div class="row">
+	<form th:action="@{/add-phone/{idPerson}(idPerson=${personObj.id})}" method="POST" class="col s12">
+	<div class="row">
+		<div class="input-field col s6">
+			<label class="active" for="number">Number:</label>
+			<input type="text" name="number" class="validate">
+		</div>	
+		<div class="input-field col s6">
+			<label class="active" for="type">type:</label>
+			<input type="text" name="type" class="validate">
+		</div>	
+		
+		<input type="submit" value="Add" class="btn waves-effect waves-light">
+	</div>
+	
+	
+	</form>
+	
+	</div>
+
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+</body>
+</html>

@@ -1,11 +1,13 @@
 package com.manager.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -20,5 +22,8 @@ public class Person implements Serializable {
 	private String name;
 	private String lastName;
 	private int age;
+	
+	@OneToMany(mappedBy = "person")
+	private List<Contact> contacts;
 	
 }

@@ -28,8 +28,8 @@
 					<!-- th:field="*{id}" para preencher quando for editar -->
 				</div>
 				<div class="input-field col s6">
-					<label for="name" class="active">Name</label> <input type="text"
-						name="name" class="validate" required th:field="*{name}">
+					<label for="name" class="active">Name</label> 
+					<input type="text" name="name" class="validate" required th:field="*{name}">
 				</div>
 			</div>
 			<div class="row">
@@ -84,9 +84,9 @@
 	<th>Delete</th>
 	</tr>
 	</thead>
-		<tr th:each="person : ${persons}">
+		<tr th:each="person : ${persons}"><!-- Loop para leitura de listas -->
 			<td th:text="${person.id}"></td>
-			<td th:text="${person.name}"></td>
+			<td><a th:href="@{/contacts/{idPerson}(idPerson=${person.id})}"> <span th:text="${person.name}"></span></a></td>
 			<td th:text="${person.lastName}"></td>
 			<td th:text="${person.age}"></td>
 			<td><a
