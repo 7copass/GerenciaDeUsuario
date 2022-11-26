@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org">
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.min.css" media="screen,projection" />
+	<style>
+	form input[type=submit]{
+	color: white;
+	}
+	</style>
+<meta charset="UTF-8">
+<title>Register</title>
+</head>
+<body>
+	<h3>Register Person</h3>
+	<br />
+	<div class="row">
+		<form id="formPerson" action="save-person" method="POST" th:object="${personObj}"
+			class="col s12">
+			<!-- th:object="${personObj}" para edição, objeto setado no metodo -->
+			<div class="row">
+				<div class="input-field col s6">
+					<label for="id" class="active">Id</label> <input id="id"
+						type="number" name="id" readonly required th:field="*{id}">
+					<!-- th:field="*{id}" para preencher quando for editar -->
+				</div>
+				<div class="input-field col s6">
+					<label for="name" class="active">Name</label> <input type="text"
+						name="name" class="validate" required th:field="*{name}">
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<label for="lastName" class="active">Last Name</label> <input
+						type="text" name="lastName" class="validate" required th:field="*{lastName}">
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<label for="age" class="active">Age</label>
+					 <input type="number" name="age" class="validate" required
+						th:field="*{age}">
+				</div>
+			</div>
+		<div class="input-field col s6">
+			<input class="btn waves-effect waves-light" type="submit"
+				value="save">
+				
+				<button class="btn waves-effect waves-light"
+				value="save" onclick="document.getElementById('formPerson').reset()">Reset form</button>
+				</div>
+		</form>
+	</div>
+	<br />
+	<br />
+
+	
+
+	<form action="searchPerson" method="POST" class="col s12">
+	<div class="row">
+	<div class="input-field col s12">
+		<label for="searchName" class="active">Search name</label> <input type="text" class="validate" name="searchName">
+		<input class="btn waves-effect waves-light " type="submit"
+			value="Search">
+			<a class="btn waves-effect waves-light" href="/list-persons">List persons</a>
+			</div>
+</div>
+	</form>
+
+
+	<br />
+	<br />
+	<table class="striped">
+	<thead>
+	<tr>
+	<th>ID</th>
+	<th>Name</th>
+	<th>LastName</th>
+	<th>Age</th>
+	<th>Update</th>
+	<th>Delete</th>
+	</tr>
+	</thead>
+		<tr th:each="person : ${persons}">
+			<td th:text="${person.id}"></td>
+			<td th:text="${person.name}"></td>
+			<td th:text="${person.lastName}"></td>
+			<td th:text="${person.age}"></td>
+			<td><a
+				th:href="@{/update-person/{idPerson}(idPerson=${person.id})}">Editar</a></td>
+			<!-- url:@{/update-person/{id-person} 
+	o parametro para ser igual item da lista (id-person=${person.id})}-->
+			<td><a
+				th:href="@{/delete-person/{idPerson}(idPerson=${person.id})}">Deletar</a></td>
+		</tr>
+
+
+	</table>
+
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+</body>
+</html>
