@@ -1,9 +1,15 @@
 package com.manager.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import javax.naming.Binding;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +20,8 @@ import com.manager.model.Contact;
 import com.manager.model.Person;
 import com.manager.repositories.ContactsRepository;
 import com.manager.repositories.PersonRepository;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class PersonController {
@@ -38,7 +46,9 @@ public class PersonController {
 		return modelAndView;//retornando para pagina
 	}
 	@RequestMapping(method = RequestMethod.POST, value = "**/save-person")//ignora tudo que vem antes da barra,metodo salva um registro e renderiza a lista com todos os registros
-	public ModelAndView save(Person person) {
+	public ModelAndView save(@Valid Person person) {
+		
+		
 		repository.save(person);		
 		ModelAndView modelAndView = new ModelAndView("/register/register-person"); //instancia um obj desse tipo e como atributo a url para onde vai retornar
 		Iterable<Person> personsIterable = repository.findAll(); //uma lista iteravel do obj que queremos é buscada no BD
@@ -88,6 +98,7 @@ public class PersonController {
 		ModelAndView modelAndView = new ModelAndView("/register/contacts");
 		Optional< Person> person = repository.findById(idPerson);
 		modelAndView.addObject("personObj", person.get());
+		modelAndView.addObject("contacts",contactsRepository.getContacts(idPerson));
 		return modelAndView;
 	}
 	
@@ -98,9 +109,21 @@ public class PersonController {
 		telephone.setPerson(person);
 		contactsRepository.save(telephone);	
 		modelAndView.addObject("personObj", person);
+		modelAndView.addObject("contacts",contactsRepository.getContacts(idPerson));
 		return modelAndView;
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "**/removePhone/{Phoneid}")
+	public ModelAndView removePhone(@PathVariable("Phoneid") Long Phoneid) {
+		
+		Person person = contactsRepository.findById(Phoneid).get().getPerson();
+		ModelAndView modelAndView = new ModelAndView("register/contacts");
+		contactsRepository.deleteById(Phoneid);
+		modelAndView.addObject("personObj", person);
+		modelAndView.addObject("contacts",contactsRepository.getContacts(person.getId()));
+		
+		return modelAndView;
+	}
 	
 	
 	

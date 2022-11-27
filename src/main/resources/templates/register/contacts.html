@@ -39,8 +39,8 @@ form input[type=submit] {
 	<form th:action="@{/add-phone/{idPerson}(idPerson=${personObj.id})}" method="POST" class="col s12">
 	<div class="row">
 		<div class="input-field col s6">
-			<label class="active" for="number">Number:</label>
-			<input type="text" name="number" class="validate">
+			<label class="active" for="phone">Number:</label>
+			<input type="text" name="phone" class="validate">
 		</div>	
 		<div class="input-field col s6">
 			<label class="active" for="type">type:</label>
@@ -54,6 +54,14 @@ form input[type=submit] {
 	</form>
 	
 	</div>
+	
+	<table class="striped">
+		<tr th:each="contact : ${contacts}">
+		<td th:text="${contact.phone}"></td>
+		<td th:text="${contact.type}"></td>
+		
+		<td><a th:href="@{/removePhone/{Phoneid}(Phoneid=${contact.id})}">Deletar</a></td>
+	</table>
 
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
 </body>

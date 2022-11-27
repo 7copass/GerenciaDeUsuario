@@ -18,30 +18,34 @@
 	<h3>Register Person</h3>
 	<br />
 	<div class="row">
+	
+	
+	
+	<br/>
 		<form id="formPerson" action="save-person" method="POST" th:object="${personObj}"
 			class="col s12">
 			<!-- th:object="${personObj}" para edição, objeto setado no metodo -->
 			<div class="row">
 				<div class="input-field col s6">
 					<label for="id" class="active">Id</label> <input id="id"
-						type="number" name="id" readonly required th:field="*{id}">
+						type="number" name="id" readonly  th:field="*{id}">
 					<!-- th:field="*{id}" para preencher quando for editar -->
 				</div>
 				<div class="input-field col s6">
 					<label for="name" class="active">Name</label> 
-					<input type="text" name="name" class="validate" required th:field="*{name}">
+					<input type="text" name="name" class="validate" required  th:field="*{name}">
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
 					<label for="lastName" class="active">Last Name</label> <input
-						type="text" name="lastName" class="validate" required th:field="*{lastName}">
+						type="text" name="lastName" class="validate" required  th:field="*{lastName}">
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
 					<label for="age" class="active">Age</label>
-					 <input type="number" name="age" class="validate" required
+					 <input type="number" name="age" required class="validate" 
 						th:field="*{age}">
 				</div>
 			</div>

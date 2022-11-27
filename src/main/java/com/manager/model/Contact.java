@@ -1,7 +1,6 @@
 package com.manager.model;
 
 import org.hibernate.annotations.ForeignKey;
-import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
