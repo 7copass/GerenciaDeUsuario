@@ -1,15 +1,11 @@
 package com.manager.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
-import javax.naming.Binding;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,8 +16,6 @@ import com.manager.model.Contact;
 import com.manager.model.Person;
 import com.manager.repositories.ContactsRepository;
 import com.manager.repositories.PersonRepository;
-
-import jakarta.validation.Valid;
 
 @Controller
 public class PersonController {
@@ -104,8 +98,10 @@ public class PersonController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "**/add-phone/{idPerson}")
 	public ModelAndView addPhone(Contact telephone, @PathVariable(name = "idPerson") Long idPerson){
-		ModelAndView modelAndView = new ModelAndView("register/contacts");
+		
 		Person person = repository.findById(idPerson).get();
+		
+		ModelAndView modelAndView = new ModelAndView("register/contacts");
 		telephone.setPerson(person);
 		contactsRepository.save(telephone);	
 		modelAndView.addObject("personObj", person);
@@ -117,6 +113,9 @@ public class PersonController {
 	public ModelAndView removePhone(@PathVariable("Phoneid") Long Phoneid) {
 		
 		Person person = contactsRepository.findById(Phoneid).get().getPerson();
+		
+		
+		
 		ModelAndView modelAndView = new ModelAndView("register/contacts");
 		contactsRepository.deleteById(Phoneid);
 		modelAndView.addObject("personObj", person);
