@@ -41,12 +41,12 @@ public class PersonController {
 	}
 	@RequestMapping(method = RequestMethod.POST, value = "**/save-person")//ignora tudo que vem antes da barra,metodo salva um registro e renderiza a lista com todos os registros
 	public ModelAndView save(@Valid Person person) {
-		
+		person.setContacts(contactsRepository.getContacts(person.getId()));// carregando telefones para corrigir erro de update
 		
 		repository.save(person);		
 		ModelAndView modelAndView = new ModelAndView("/register/register-person"); //instancia um obj desse tipo e como atributo a url para onde vai retornar
 		Iterable<Person> personsIterable = repository.findAll(); //uma lista iteravel do obj que queremos é buscada no BD
-		modelAndView.addObject("persons", personsIterable); // aqui setamos que a lista da viu sera adicionada no objetos do BD
+		modelAndView.addObject("persons", personsIterable); // aqui setamos que a lista da view sera adicionada no objetos do BD
 		modelAndView.addObject("personObj", new Person());////instanciando um objeto vazio para reaproveitar o form de cadastro
 		return modelAndView; // retornamos a view onde será mostrado a lista
 		
