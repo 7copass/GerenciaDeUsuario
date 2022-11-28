@@ -14,6 +14,6 @@
 
 ## Observação:
 
-**Em desenvovimento**
+Rodando em "localhost:9000"
 
 
