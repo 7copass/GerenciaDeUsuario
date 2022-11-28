@@ -20,8 +20,16 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/").permitAll().anyRequest()
-				.authenticated().and().formLogin().permitAll().and().logout()
+		http.csrf().disable().authorizeRequests()
+		.antMatchers(HttpMethod.GET, "/").permitAll()
+		.antMatchers(HttpMethod.GET, "/register-person").hasRole("ADMIN")
+		.anyRequest()
+				.authenticated().and().formLogin().permitAll()
+				.loginPage("/login")
+				.defaultSuccessUrl("/register-person")
+				.failureUrl("/login?error=true")
+				.and().logout()
+				.logoutSuccessUrl("/login")
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 
@@ -33,7 +41,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/materialize/**");
+		web.ignoring().antMatchers("/materialize/**", "/error");
 	}
 
 }

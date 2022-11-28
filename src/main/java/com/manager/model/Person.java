@@ -31,10 +31,17 @@ public class Person implements Serializable {
 	@NotEmpty(message = "SobreNome não pode ser vazio")
 	@NotNull(message = "SobreNome não pode ser null")
 	private String lastName;
-	@NotEmpty(message = "Idade não pode ser vazio")
+	
 	@NotNull(message = "Idade não pode ser null")
 	@Min(value = 18, message = "Idade inválida")
 	private int age;
+	
+	private String cep;
+	private String rua;
+	private String bairro;
+	private String cidade;
+	private String uf;
+	private String ibge;
 	
 	@OneToMany(mappedBy = "person", orphanRemoval = true, cascade = CascadeType.ALL)//para poder excluir a classe com que se relaciona
 	private List<Contact> contacts;
