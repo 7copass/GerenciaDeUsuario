@@ -10,6 +10,9 @@ import com.manager.model.Person;
 @Repository
 @Transactional
 public interface PersonRepository extends JpaRepository<Person, Long> {
+	
 	List<Person> findByNameContainingIgnoreCase(String searchName);
+	List<Person> findByGender(String searchGender);
+	
 
 }

@@ -36,6 +36,8 @@ public class Person implements Serializable {
 	@Min(value = 18, message = "Idade inválida")
 	private int age;
 	
+	private String gender;
+	
 	private String cep;
 	private String rua;
 	private String bairro;

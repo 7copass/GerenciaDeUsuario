@@ -1,5 +1,7 @@
 package com.manager.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -41,7 +43,7 @@ public class PersonController {
 	}
 	@RequestMapping(method = RequestMethod.POST, value = "**/save-person")//ignora tudo que vem antes da barra,metodo salva um registro e renderiza a lista com todos os registros
 	public ModelAndView save(@Valid Person person) {
-		person.setContacts(contactsRepository.getContacts(person.getId()));// carregando telefones para corrigir erro de update
+		person.setContacts(contactsRepository.getContacts(person.getId()));// carregando telefones para corrigir erro de updateconf
 		
 		repository.save(person);		
 		ModelAndView modelAndView = new ModelAndView("/register/register-person"); //instancia um obj desse tipo e como atributo a url para onde vai retornar
@@ -80,9 +82,17 @@ public class PersonController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "**/searchPerson")
-	public ModelAndView Search(@RequestParam("searchName") String searchName) {
+	public ModelAndView Search(@RequestParam("searchName") String searchName,
+			@RequestParam ("searchGender") String searchGender) {
+		
+		List<Person> persons = new ArrayList<Person>();
+		if(searchGender != null && !searchGender.isEmpty()) {
+			persons = repository.findByGender(searchGender);
+		}else {
+			persons = repository.findByNameContainingIgnoreCase(searchName);
+		}
 		ModelAndView modelAndView = new ModelAndView("/register/register-person");
-		modelAndView.addObject("persons", repository.findByNameContainingIgnoreCase(searchName));
+		modelAndView.addObject("persons", persons);
 		modelAndView.addObject("personObj", new Person());////instanciando um objeto vazio para reaproveitar o form de cadastro
 		return modelAndView;
 	}
