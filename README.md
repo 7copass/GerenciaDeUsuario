@@ -1,4 +1,4 @@
-<h1> Projeto Library</h1>
+<h1>Gerencia de usuários</h1>
 
  
 #### Projeto desenvolvido utilizando as tecnologias:
@@ -14,6 +14,6 @@
 
 ## Observação:
 
-**Em desenvovimento**
+Rodando em "localhost:9000"
 
 
