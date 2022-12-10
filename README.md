@@ -10,13 +10,13 @@
 + Postgres
 
 ## Orientações:
-tela de login
-cadastro de usuário
-edição de usuário
-exclusão de usuário
-busca por nome
-inclusão de endereço de usuário, consumindo web service Via cep
-inclusão de telefone de usuário
++ tela de login
++ cadastro de usuário
++ edição de usuário
++ exclusão de usuário
++ busca por nome
++ inclusão de endereço de usuário, consumindo web service Via cep
++ inclusão de telefone de usuário
 
 ## Observação:
 Existem roles: ADMIN e USER
